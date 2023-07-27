@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import classNames from "classnames";
 import { TokenAddButton } from "./TokenAddButton";
-import { TOKEN_SYMBOLS } from "../../../entities";
 import { useTranslation } from "react-i18next";
+import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
 
 export interface ITokenAddButtonsProps {
   className?: string;

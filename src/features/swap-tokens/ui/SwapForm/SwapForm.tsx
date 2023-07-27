@@ -1,6 +1,5 @@
 import {FC, useState} from "react";
 
-import { TOKEN_SYMBOLS } from "../../../../entities";
 import { SwapFormStore } from "../../model";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router";
@@ -9,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { calculateSwapDestinationAmount } from "../../lib";
 import {useRootStore} from "../../../../app/use-root-store";
 import {useTranslation} from "react-i18next";
+import {TOKEN_SYMBOLS} from "../../../../shared/constants/blockchain";
 
 export interface ISwapFormProps {}
 

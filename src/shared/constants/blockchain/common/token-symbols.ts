@@ -1,0 +1,21 @@
+
+export enum TOKEN_SYMBOLS {
+    USDT = "USDT",
+    OMD = "OMD",
+    STOMD = "stOMD",
+    TIGR = "omdwTigr",
+    CR = "omdwCRB",
+    CONS = "omdwCons",
+    CONT = "omdwCont",
+    CHAI = "omdwChai",
+    LED = "omdwLed",
+    DELC = "omdwDelC",
+    MAGIC = "omdwMS",
+    ARA = "omAra",
+    ARAORIG = "AG",
+    Oo = "omOo",
+    Crc = "omCrc",
+    FP = "omFP",
+    DB = "omDB",
+    CRD = "omCRD",
+}

@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 import { StakeFormStore } from "../../model";
-import { TOKEN_SYMBOLS } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { BaseTokensForm } from "../../../base-tokens-form";
 import { useRootStore } from "../../../../app/use-root-store";
 import { useTranslation } from "react-i18next";
+import {TOKEN_SYMBOLS} from "../../../../shared/constants/blockchain";
 
 export interface StakeFormProps {
   className?: string;

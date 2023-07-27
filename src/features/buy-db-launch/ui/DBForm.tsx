@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { BaseTokensForm } from "../../base-tokens-form";
-import { TOKEN_SYMBOLS } from "../../../entities";
 import { observer } from "mobx-react-lite";
 import { DBFormLaunchStore } from "../model";
 
@@ -8,6 +7,7 @@ import { TokenAddButton } from "../../add-token-to-metamask";
 import { useAccount } from "wagmi";
 import { useRootStore } from "../../../app/use-root-store";
 import { useTranslation } from "react-i18next";
+import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
 
 export const DBFormLaunch: FC = observer(() => {
   const { t } = useTranslation();

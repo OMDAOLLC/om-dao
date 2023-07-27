@@ -4,8 +4,9 @@ import classNames from "classnames";
 import styles from "./TokenAddButton.module.scss";
 import { TokenAddButtonStore } from "../../model";
 import { observer } from "mobx-react-lite";
-import { TOKEN_SYMBOLS } from "../../../../entities";
 import { Button, ButtonProps } from "../../../../shared/ui";
+import {TOKEN_SYMBOLS} from "../../../../shared/constants/blockchain";
+import {useRootStore} from "../../../../app/use-root-store";
 
 export interface TokenAddButtonProps extends ButtonProps {
   className?: string;
@@ -19,8 +20,9 @@ export interface TokenAddButtonProps extends ButtonProps {
  */
 export const TokenAddButton: FC<TokenAddButtonProps> = observer(
   ({ className, tokenSymbol, text, ...otherProps }) => {
+      const rootStore = useRootStore()
     const [{ addToken }] = useState(
-      () => new TokenAddButtonStore(tokenSymbol, window.ethereum)
+      () => new TokenAddButtonStore(tokenSymbol, window.ethereum, rootStore)
     );
 
     return (

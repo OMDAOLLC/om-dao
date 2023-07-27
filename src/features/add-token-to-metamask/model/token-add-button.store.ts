@@ -1,16 +1,18 @@
 import { makeAutoObservable } from "mobx";
 import { Ethereum, TokenStore } from "../../../entities";
-import { TOKEN_SYMBOLS } from "../../../entities";
+import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
+import {RootStore} from "../../../app/root-store";
 
 export class TokenAddButtonStore {
   private readonly _baseTokenInfo: TokenStore;
 
   constructor(
     private _tokenSymbol: TOKEN_SYMBOLS,
-    private readonly _ethereum: Ethereum
+    private readonly _ethereum: Ethereum,
+    private readonly _rootStore: RootStore
   ) {
     makeAutoObservable(this);
-    this._baseTokenInfo = new TokenStore(this._tokenSymbol);
+    this._baseTokenInfo = new TokenStore(_tokenSymbol, _rootStore);
   }
 
   public addToken = () => {

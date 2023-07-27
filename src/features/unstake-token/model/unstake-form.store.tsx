@@ -1,10 +1,11 @@
 import { Contract } from "@ethersproject/contracts";
-import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { formatUnits } from "@ethersproject/units";
 import { format } from "date-fns";
 import { makeAutoObservable } from "mobx";
 import { OperationStatus } from "../../../shared/types";
 import { RootStore } from "../../../app/root-store";
+import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
+import {BLOCKCHAIN} from "../../../shared/constants/blockchain/blockchain";
 
 export class UnstakeFormStore {
   private _inStake: string = "0";
@@ -30,6 +31,7 @@ export class UnstakeFormStore {
     try {
       await this.fetchBalance();
       await this.fetchUnStakeDate();
+
       if (this._inStake && +this._inStake !== 0) {
         await this.fetchDividends();
       }
@@ -106,18 +108,22 @@ export class UnstakeFormStore {
   };
 
   private get _stakeContract(): Contract {
+    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][this._stakeTokenSymbol]
+
     return new Contract(
-      TOKEN_ADDRESS[this._stakeTokenSymbol],
-      TOKEN_ABI[this._stakeTokenSymbol],
+      token.address,
+      token.abi,
       this._rootStore.signerOrProvider
     );
   }
 
   private get _unStakeContract(): Contract {
+    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][this._unstakeTokenSymbol]
+
     return new Contract(
-      TOKEN_ADDRESS[this._unstakeTokenSymbol],
-      TOKEN_ABI[this._unstakeTokenSymbol],
-      this._rootStore.signerOrProvider
+        token.address,
+        token.abi,
+        this._rootStore.signerOrProvider
     );
   }
 

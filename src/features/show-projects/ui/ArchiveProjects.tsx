@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { Project } from "./Project";
-
-import { TOKEN_SYMBOLS, TOKEN_HREF, TOKEN_TITLE } from "../../../entities";
-
+import {COMMON_TIGR_DATA} from "../../../shared/constants/blockchain";
 
 export const ArchiveProjects: FC = () => {
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-      <Project title={TOKEN_TITLE[TOKEN_SYMBOLS.TIGR]} symbol={TOKEN_SYMBOLS.TIGR} href={TOKEN_HREF[TOKEN_SYMBOLS.TIGR]} />
+      <Project title={COMMON_TIGR_DATA.title} symbol={COMMON_TIGR_DATA.symbol} href={COMMON_TIGR_DATA.herf} />
     </div>
   );
 };

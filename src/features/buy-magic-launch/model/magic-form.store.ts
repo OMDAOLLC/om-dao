@@ -1,13 +1,14 @@
 import { makeAutoObservable } from "mobx";
 import { Contract } from "@ethersproject/contracts";
-import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../entities";
 import { BaseTokensFormSubmitData } from "../../base-tokens-form";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { formatBytes32String } from "@ethersproject/strings";
 
 import { SwapStatus } from "../../swap-tokens";
 import { RootStore } from "../../../app/root-store";
-import { SWAP_CONTRACT_DATA } from "../../../entities/ethereum/constants/swap-contract-data";
+
+import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
+import {BLOCKCHAIN} from "../../../shared/constants/blockchain/blockchain";
 
 export class MAGICFormLaunchStore {
     private _exchangeRate: number = 0;
@@ -105,27 +106,33 @@ export class MAGICFormLaunchStore {
     };
 
     public get sourceContract(): Contract {
+        const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][TOKEN_SYMBOLS.OMD]
+
         return new Contract(
-            TOKEN_ADDRESS.OMD,
-            TOKEN_ABI.OMD,
+            token.address,
+            token.abi,
             this._rootStore.signerOrProvider
         );
     }
 
     public get destinationContract(): Contract {
+        const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][TOKEN_SYMBOLS.MAGIC]
+
         return new Contract(
-            TOKEN_ADDRESS.omdwMS,
-            TOKEN_ABI.omdwMS,
+            token.address,
+            token.abi,
             this._rootStore.signerOrProvider
         );
     }
 
     public get swapContract(): Contract {
-        return new Contract(
-            SWAP_CONTRACT_DATA.address,
-            SWAP_CONTRACT_DATA.abi,
-            this._rootStore.signerOrProvider
-        );
+           const swapContract = BLOCKCHAIN[this._rootStore.chain.id]["swapContract"]
+
+    return new Contract(
+        swapContract.address,
+        swapContract.abi,
+      this._rootStore.signerOrProvider
+    );
     }
 
     public get isLoading(): boolean {

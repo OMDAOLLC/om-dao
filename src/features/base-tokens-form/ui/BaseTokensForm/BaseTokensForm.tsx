@@ -1,18 +1,19 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 
 import styles from "./BaseTokensForm.module.scss";
-import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../../entities";
 import { observer } from "mobx-react-lite";
 import { SourceContract } from "../SourceContract";
 import { DestinationContract } from "../DestinationContract";
 import { BaseContractInfo, BaseTokensFormSubmitData } from "../../types";
 import { Button, Loader } from "../../../../shared/ui";
 import { Arrow } from "../../../../shared/ui";
-import { useAccount, useBalance, useContractRead } from "wagmi";
+import {useAccount, useBalance, useChainId, useContractRead} from "wagmi";
 import { Web3Button } from "@web3modal/react";
 import { useTranslation } from "react-i18next";
 import { OperationStatus } from '../../../../shared/types';
 import { SwapStatus } from '../../../swap-tokens';
+import {TOKEN_SYMBOLS} from "../../../../shared/constants/blockchain";
+import {BLOCKCHAIN} from "../../../../shared/constants/blockchain/blockchain";
 
 export interface BaseTokensFormProps {
   title: string;
@@ -258,18 +259,19 @@ const useBaseTokenInfo = (
   tokenSymbol: TOKEN_SYMBOLS,
   watch: boolean = false
 ): { data: BaseContractInfo | undefined; isLoading: boolean } => {
+  const chainId = useChainId()
   const [result, setResult] = useState<BaseContractInfo>();
   const { address } = useAccount();
-
+  const token =  BLOCKCHAIN[chainId]["tokens"][tokenSymbol]
   const { data: balance, isLoading: isLoadingBalance } = useBalance({
     address,
-    token: TOKEN_ADDRESS[tokenSymbol],
+    token: token.address,
     watch,
   });
 
   const { data: name, isLoading: isLoadingName } = useContractRead({
-    address: TOKEN_ADDRESS[tokenSymbol],
-    abi: TOKEN_ABI[tokenSymbol],
+    address: token.address,
+    abi: token.abi,
     functionName: "name",
   });
 
@@ -286,7 +288,7 @@ const useBaseTokenInfo = (
         .catch();
 
       setResult({
-        name: name as string,
+        name: name as unknown as string,
         decimals: balance ? balance.decimals.toString() : "0",
         symbol: tokenSymbol,
         balance: balance ? balance.formatted : "0",
