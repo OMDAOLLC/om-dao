@@ -1,1 +1,1 @@
-export type TProjectsPageTabs = "activeProjects" | "waitListing" | "archive";
+export type TProjectsPageTabs = 'activeProjects' | 'waitListing' | 'archive';

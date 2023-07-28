@@ -1,15 +1,20 @@
-import { makeAutoObservable } from "mobx";
-import { SignerStore } from "../entities/signer";
-import { ProviderStore } from "../entities/provider";
-import {Chain, Config, configureChains, createConfig} from "wagmi";
-
+import { makeAutoObservable } from 'mobx';
+import { SignerStore } from '../entities/signer';
+import { ProviderStore } from '../entities/provider';
+import { Chain, Config, configureChains, createConfig } from 'wagmi';
 
 import {
-  EthereumClient, w3mConnectors, w3mProvider,
-} from "@web3modal/ethereum";
-import {AVAILABLE_CHAINS, DEFAULT_CHAIN, WALLET_CONNECT_PROJECT_ID} from '../shared/config';
-import {JsonRpcSigner, Provider} from "@ethersproject/providers";
-import {watchNetwork} from "@wagmi/core";
+  EthereumClient,
+  w3mConnectors,
+  w3mProvider,
+} from '@web3modal/ethereum';
+import {
+  AVAILABLE_CHAINS,
+  DEFAULT_CHAIN,
+  WALLET_CONNECT_PROJECT_ID,
+} from '../shared/config';
+import { JsonRpcSigner, Provider } from '@ethersproject/providers';
+import { watchNetwork } from '@wagmi/core';
 
 export class RootStore {
   private _signerStore: SignerStore | undefined;
@@ -24,7 +29,7 @@ export class RootStore {
 
   private _refCode: string | undefined;
 
-  private _chain: Chain | null = null
+  private _chain: Chain | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -38,7 +43,7 @@ export class RootStore {
       this.checkRefCode();
 
       watchNetwork((network) => {
-          this._chain = network.chain ?? null
+        this._chain = network.chain ?? null;
       });
     } catch (e) {
       console.log(e);
@@ -55,13 +60,19 @@ export class RootStore {
   };
 
   protected createClients = () => {
-    const { publicClient, webSocketPublicClient } = configureChains(AVAILABLE_CHAINS, [w3mProvider({ projectId: WALLET_CONNECT_PROJECT_ID})]);
+    const { publicClient, webSocketPublicClient } = configureChains(
+      AVAILABLE_CHAINS,
+      [w3mProvider({ projectId: WALLET_CONNECT_PROJECT_ID })]
+    );
 
     const wagmiConfig = createConfig({
       autoConnect: true,
       publicClient,
       webSocketPublicClient,
-      connectors: w3mConnectors({ projectId: WALLET_CONNECT_PROJECT_ID, chains:AVAILABLE_CHAINS })
+      connectors: w3mConnectors({
+        projectId: WALLET_CONNECT_PROJECT_ID,
+        chains: AVAILABLE_CHAINS,
+      }),
     }) as Config;
 
     const ethereumClient = new EthereumClient(wagmiConfig, AVAILABLE_CHAINS);
@@ -71,7 +82,7 @@ export class RootStore {
   };
 
   public checkRefCode = () => {
-    const refCode = localStorage.getItem("refCode");
+    const refCode = localStorage.getItem('refCode');
 
     if (refCode) {
       this._refCode = refCode;
@@ -80,9 +91,9 @@ export class RootStore {
 
   public updateRefCode = (newRefCode: string | undefined) => {
     if (newRefCode) {
-      localStorage.setItem("refCode", newRefCode);
+      localStorage.setItem('refCode', newRefCode);
     } else {
-      localStorage.removeItem("refCode");
+      localStorage.removeItem('refCode');
     }
 
     this._refCode = newRefCode;
@@ -94,7 +105,7 @@ export class RootStore {
 
   public get signerStore(): SignerStore {
     if (!this._signerStore) {
-      throw Error("SignerStore не существует");
+      throw Error('SignerStore не существует');
     }
 
     return this._signerStore;
@@ -102,14 +113,14 @@ export class RootStore {
 
   public get providerStore(): ProviderStore {
     if (!this._providerStore) {
-      throw Error("ProviderStore не существует");
+      throw Error('ProviderStore не существует');
     }
     return this._providerStore;
   }
 
   public get ethereumClient(): EthereumClient {
     if (!this._ethereumClient) {
-      throw Error("EthereumClient не существует");
+      throw Error('EthereumClient не существует');
     }
 
     return this._ethereumClient;
@@ -117,7 +128,7 @@ export class RootStore {
 
   public get wagmiConfig(): Config {
     if (!this._wagmiConfig) {
-      throw Error("WagmiClient не существует");
+      throw Error('WagmiClient не существует');
     }
 
     return this._wagmiConfig;
@@ -138,7 +149,7 @@ export class RootStore {
     return this._isAppInitialized && this.providerStore.hasProvider;
   }
 
-  public get chain():Chain {
-    return this._chain ?? DEFAULT_CHAIN
+  public get chain(): Chain {
+    return this._chain ?? DEFAULT_CHAIN;
   }
 }

@@ -1,28 +1,27 @@
-import { makeAutoObservable } from "mobx";
-import { Contract } from "@ethersproject/contracts";
-import { BaseTokensFormSubmitData } from "../../base-tokens-form";
-import { formatUnits, parseUnits } from "@ethersproject/units";
-import { formatBytes32String } from "@ethersproject/strings";
+import { makeAutoObservable } from 'mobx';
+import { Contract } from '@ethersproject/contracts';
+import { BaseTokensFormSubmitData } from '../../base-tokens-form';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { formatBytes32String } from '@ethersproject/strings';
 
-import { SwapStatus } from "../../swap-tokens";
-import { RootStore } from "../../../app/root-store";
+import { SwapStatus } from '../../swap-tokens';
+import { RootStore } from '../../../app/root-store';
 
-import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
-import {BLOCKCHAIN} from "../../../shared/constants/blockchain/blockchain";
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
+import { BLOCKCHAIN } from '../../../shared/constants/blockchain/blockchain';
 
 export class CHAIFormLaunchStore {
-  private _exchangeRate: number = 0;
+  private _exchangeRate = 0;
 
-  private _isInitialized: boolean = false;
+  private _isInitialized = false;
 
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
-  private _refcode: string = "base";
+  private _refcode = 'base';
 
-  private _accountAddress: string =
-    "0x0000000000000000000000000000000000000000";
+  private _accountAddress = '0x0000000000000000000000000000000000000000';
 
-  private _maxCount: string = "0";
+  private _maxCount = '0';
 
   constructor(
     private _rootStore: RootStore,
@@ -31,22 +30,22 @@ export class CHAIFormLaunchStore {
   ) {
     makeAutoObservable(this);
 
-    this._refcode = refCode ? refCode : "base";
+    this._refcode = refCode ? refCode : 'base';
     this._accountAddress = accountAddress
       ? accountAddress
-      : "0x0000000000000000000000000000000000000000";
+      : '0x0000000000000000000000000000000000000000';
 
     this.init();
   }
 
   private init = async (): Promise<void> => {
     try {
-      const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CHAI);
+      const bytes32Symbol = formatBytes32String(ETokenSymbols.CHAI);
       const bigNumber = await this.swapContract.myPrice(
         this._accountAddress,
         bytes32Symbol
       );
-      this._exchangeRate = +formatUnits(bigNumber, "6");
+      this._exchangeRate = +formatUnits(bigNumber, '6');
 
       const maxCount = await this.destinationContract.balanceOf(
         this.swapContract.address
@@ -80,7 +79,7 @@ export class CHAIFormLaunchStore {
       await approveTransaction.wait();
 
       this._swapStatus = SwapStatus.AWAITING_CONFIRM;
-      const bytes32Symbol = formatBytes32String(TOKEN_SYMBOLS.CHAI);
+      const bytes32Symbol = formatBytes32String(ETokenSymbols.CHAI);
       const bytes32ReferalCode = formatBytes32String(this._refcode);
 
       const buyTransaction = await this.swapContract.buyToken(
@@ -100,38 +99,39 @@ export class CHAIFormLaunchStore {
   };
 
   public calculateDestinationAmount = (sourceAmount: string): string => {
-    return this._exchangeRate.toString() === "0"
-      ? "0"
+    return this._exchangeRate.toString() === '0'
+      ? '0'
       : (+sourceAmount / this._exchangeRate).toString();
   };
 
   public get sourceContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][TOKEN_SYMBOLS.OMD]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[ETokenSymbols.OMD];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
-
   }
 
   public get destinationContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][TOKEN_SYMBOLS.OMD]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[ETokenSymbols.OMD];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
   }
 
   public get swapContract(): Contract {
-       const swapContract = BLOCKCHAIN[this._rootStore.chain.id]["swapContract"]
+    const swapContract = BLOCKCHAIN[this._rootStore.chain.id].swapContract;
 
     return new Contract(
-        swapContract.address,
-        swapContract.abi,
+      swapContract.address,
+      swapContract.abi,
       this._rootStore.signerOrProvider
     );
   }
@@ -155,16 +155,16 @@ export class CHAIFormLaunchStore {
     return this._maxCount;
   }
 
-  public getupdateMaxCount = async ()=>{
+  public getupdateMaxCount = async () => {
     const maxCount = await this.destinationContract.balanceOf(
       this.swapContract.address
     );
-   
+
     const maxsCount = formatUnits(
       maxCount,
       await this.destinationContract.decimals()
     );
-      
-    return  maxsCount
-  }
+
+    return maxsCount;
+  };
 }

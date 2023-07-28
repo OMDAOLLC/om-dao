@@ -1,1 +1,1 @@
-export * from "./magic-form.store";
+export * from './magic-form.store';

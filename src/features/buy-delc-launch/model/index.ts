@@ -1,1 +1,1 @@
-export * from "./delc-form.store";
+export * from './delc-form.store';

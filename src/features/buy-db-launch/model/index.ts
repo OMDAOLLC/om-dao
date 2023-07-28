@@ -1,1 +1,1 @@
-export * from "./db-form.store";
+export * from './db-form.store';

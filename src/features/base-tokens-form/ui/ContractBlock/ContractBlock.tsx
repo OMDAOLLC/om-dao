@@ -1,9 +1,9 @@
-import { FC, useCallback } from "react";
-import classNames from "classnames";
+import { FC, useCallback } from 'react';
+import classNames from 'classnames';
 
-import { Input } from "../../../../shared/ui";
-import { Token } from "../../../../entities";
-import {useTranslation} from "react-i18next";
+import { Input } from '../../../../shared/ui';
+import { Token } from '../../../../entities';
+import { useTranslation } from 'react-i18next';
 
 export interface ContractBlockProps {
   title: string;
@@ -26,7 +26,7 @@ export const ContractBlock: FC<ContractBlockProps> = ({
   exchangeRate,
   maxCount,
 }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const handleChangeSwapAmount = useCallback(
     (value: string) => {
@@ -38,13 +38,15 @@ export const ContractBlock: FC<ContractBlockProps> = ({
   return (
     <div
       className={classNames(
-        "grid grid-cols-1 gap-4 border rounded-md p-4",
+        'grid grid-cols-1 gap-4 border rounded-md p-4',
         className
       )}
     >
       <div className="grid grid-cols-2 gap-4">
         <div>{title}</div>
-        <div>{t("common.form.currentBalance")}: {balance}</div>
+        <div>
+          {t('common.form.currentBalance')}: {balance}
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4 align-top">
         <Token symbol={symbol} />
@@ -54,11 +56,19 @@ export const ContractBlock: FC<ContractBlockProps> = ({
             onChange={handleChangeSwapAmount}
             readOnly={readonlyAmount}
           />
-          {maxCount && <p className="text-right">{t("common.form.max")}: {maxCount}</p>}
+          {maxCount && (
+            <p className="text-right">
+              {t('common.form.max')}: {maxCount}
+            </p>
+          )}
         </div>
       </div>
       <div>{name}</div>
-      {exchangeRate && <div>{t("common.form.price")}: {exchangeRate}</div>}
+      {exchangeRate && (
+        <div>
+          {t('common.form.price')}: {exchangeRate}
+        </div>
+      )}
     </div>
   );
 };

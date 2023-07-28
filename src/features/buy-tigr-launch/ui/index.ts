@@ -1,1 +1,1 @@
-export * from "./TIGRForm";
+export * from './TIGRForm';

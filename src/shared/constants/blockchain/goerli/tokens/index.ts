@@ -1,1 +1,1 @@
-export * from "./goerli-tokens"
+export * from './goerli-tokens';

@@ -1,13 +1,13 @@
-import { FC, useState } from "react";
-import { BaseTokensForm } from "../../base-tokens-form";
-import { observer } from "mobx-react-lite";
-import { DBFormLaunchStore } from "../model";
+import { FC, useState } from 'react';
+import { BaseTokensForm } from '../../base-tokens-form';
+import { observer } from 'mobx-react-lite';
+import { DBFormLaunchStore } from '../model';
 
-import { TokenAddButton } from "../../add-token-to-metamask";
-import { useAccount } from "wagmi";
-import { useRootStore } from "../../../app/use-root-store";
-import { useTranslation } from "react-i18next";
-import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
+import { TokenAddButton } from '../../add-token-to-metamask';
+import { useAccount } from 'wagmi';
+import { useRootStore } from '../../../app/use-root-store';
+import { useTranslation } from 'react-i18next';
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
 
 export const DBFormLaunch: FC = observer(() => {
   const { t } = useTranslation();
@@ -29,10 +29,10 @@ export const DBFormLaunch: FC = observer(() => {
   return (
     <>
       <BaseTokensForm
-        title={t("common.purchaseToken", { symbol: TOKEN_SYMBOLS.DB })}
+        title={t('common.purchaseToken', { symbol: ETokenSymbols.DB })}
         onSubmit={onSubmit}
-        sourceContractSymbol={TOKEN_SYMBOLS.OMD}
-        destinationContractSymbol={TOKEN_SYMBOLS.DB}
+        sourceContractSymbol={ETokenSymbols.OMD}
+        destinationContractSymbol={ETokenSymbols.DB}
         calculateDestinationAmount={calculateDestinationAmount}
         swapStatus={swapStatus}
         isLoading={isLoading}
@@ -41,11 +41,11 @@ export const DBFormLaunch: FC = observer(() => {
       />
       <TokenAddButton
         className="w-full"
-        text={t("common.addToken", {
-          symbol: TOKEN_SYMBOLS.DB,
-          walletName: "MetaMask",
+        text={t('common.addToken', {
+          symbol: ETokenSymbols.DB,
+          walletName: 'MetaMask',
         })}
-        tokenSymbol={TOKEN_SYMBOLS.DB}
+        tokenSymbol={ETokenSymbols.DB}
       />
     </>
   );

@@ -1,2 +1,2 @@
-export * from "./Token";
-export * from "./TokenIcon";
+export * from './Token';
+export * from './TokenIcon';

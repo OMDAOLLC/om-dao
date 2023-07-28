@@ -1,1 +1,1 @@
-export * from "./CONTForm";
+export * from './CONTForm';

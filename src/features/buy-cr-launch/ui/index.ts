@@ -1,1 +1,1 @@
-export * from "./CRForm";
+export * from './CRForm';

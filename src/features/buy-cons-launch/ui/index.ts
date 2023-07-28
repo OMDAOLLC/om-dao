@@ -1,1 +1,1 @@
-export * from "./CONSForm";
+export * from './CONSForm';

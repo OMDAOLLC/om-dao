@@ -1,14 +1,14 @@
-import { Contract } from "@ethersproject/contracts";
-import { JsonRpcSigner } from "@ethersproject/providers";
-import { makeAutoObservable } from "mobx";
-import { BaseContractInfo, FullContractInfo } from "../types";
+import { Contract } from '@ethersproject/contracts';
+import { JsonRpcSigner } from '@ethersproject/providers';
+import { makeAutoObservable } from 'mobx';
+import { BaseContractInfo, FullContractInfo } from '../types';
 
-import { formatUnits } from "@ethersproject/units";
-import { DEFAULT_TOKEN_INFO } from "../constants";
+import { formatUnits } from '@ethersproject/units';
+import { DEFAULT_TOKEN_INFO } from '../constants';
 
 //Не используется, просто так не заработает если захочешь юзануть
 export class BaseTokensFormStore {
-  private _sourceAmount: string = "0";
+  private _sourceAmount = '0';
 
   private _sourceContract: Contract;
 
@@ -18,9 +18,9 @@ export class BaseTokensFormStore {
 
   private _destinationContractData: BaseContractInfo = DEFAULT_TOKEN_INFO;
 
-  private _isRearranged: boolean = false;
+  private _isRearranged = false;
 
-  private _isInitialized: boolean = false;
+  private _isInitialized = false;
 
   constructor(
     private _signer: JsonRpcSigner,
@@ -64,7 +64,7 @@ export class BaseTokensFormStore {
         `/src/app/images/tokens/${symbol.toLowerCase()}.webp`
       )
         .then((module) => module.default)
-        .catch(() => "");
+        .catch(() => '');
 
       const decimals = await contract.decimals();
       const signerAddress = await this._signer.getAddress();

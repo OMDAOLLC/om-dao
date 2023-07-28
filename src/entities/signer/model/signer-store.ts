@@ -1,11 +1,12 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 import {
   watchNetwork,
-  getNetwork,watchWalletClient,
-     WalletClient
-} from "@wagmi/core";
-import { JsonRpcSigner } from "@ethersproject/providers";
-import {getEthersSigner} from "../../../shared/lib";
+  getNetwork,
+  watchWalletClient,
+  WalletClient,
+} from '@wagmi/core';
+import { JsonRpcSigner } from '@ethersproject/providers';
+import { getEthersSigner } from '../../../shared/lib';
 
 export class SignerStore {
   private _signer: JsonRpcSigner | null = null;
@@ -47,13 +48,13 @@ export class SignerStore {
   };
 
   private onChangeSigner = async (data: WalletClient | null) => {
-    const signer = await getEthersSigner({chainId: data?.chain.id}) ?? null
+    const signer = (await getEthersSigner({ chainId: data?.chain.id })) ?? null;
     this._signer = signer;
   };
 
   get signer(): JsonRpcSigner {
     if (!this._signer) {
-      throw Error("Signer не существует");
+      throw Error('Signer не существует');
     }
 
     return this._signer;

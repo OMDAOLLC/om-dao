@@ -1,4 +1,4 @@
-import {Address} from "wagmi";
+import { Address } from 'wagmi';
 
 export interface BaseTokenInfo {
   name: string;

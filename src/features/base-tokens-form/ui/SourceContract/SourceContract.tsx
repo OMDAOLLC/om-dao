@@ -1,10 +1,10 @@
-import {FC, useTransition} from "react";
-import classNames from "classnames";
+import { FC, useTransition } from 'react';
+import classNames from 'classnames';
 
-import styles from "./SourceContract.module.scss";
-import { ContractBlock } from "../ContractBlock";
-import { BaseContractInfo, FullContractInfo } from "../../types";
-import {useTranslation} from "react-i18next";
+import styles from './SourceContract.module.scss';
+import { ContractBlock } from '../ContractBlock';
+import { BaseContractInfo, FullContractInfo } from '../../types';
+import { useTranslation } from 'react-i18next';
 
 export interface SourceContractProps {
   fullContractInfo: BaseContractInfo;
@@ -24,7 +24,7 @@ export const SourceContract: FC<SourceContractProps> = ({
   maxCount,
   ...otherProps
 }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div
@@ -32,7 +32,7 @@ export const SourceContract: FC<SourceContractProps> = ({
       {...otherProps}
     >
       <ContractBlock
-        title={t("common.form.youGive")}
+        title={t('common.form.youGive')}
         token={fullContractInfo}
         amount={amount}
         onChangeAmount={onChangeAmount}

@@ -1,1 +1,1 @@
-export * from "./fp-form.store";
+export * from './fp-form.store';

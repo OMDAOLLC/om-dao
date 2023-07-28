@@ -1,2 +1,2 @@
-export * from "./is-object"
-export * from "./wagmi-adapters"
+export * from './is-object';
+export * from './wagmi-adapters';

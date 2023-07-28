@@ -1,1 +1,1 @@
-export * from "./ethereum-tokens"
+export * from './ethereum-tokens';

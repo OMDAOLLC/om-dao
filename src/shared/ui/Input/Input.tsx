@@ -1,10 +1,10 @@
-import { FC, HTMLProps, MouseEvent, ChangeEvent } from "react";
-import classNames from "classnames";
+import { FC, HTMLProps, MouseEvent, ChangeEvent } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Input.module.scss";
+import styles from './Input.module.scss';
 
 export interface IInputProps
-  extends Omit<HTMLProps<HTMLInputElement>, "onChange"> {
+  extends Omit<HTMLProps<HTMLInputElement>, 'onChange'> {
   label?: string;
   onChange?: (value: string) => void;
 }

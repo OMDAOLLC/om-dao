@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import styles from "./Background.module.scss";
-import { ReactComponent as BgSvg } from "../../../app/images/bg.svg";
+import styles from './Background.module.scss';
+import { ReactComponent as BgSvg } from '../../../app/images/bg.svg';
 
 export const Background: FC = () => {
   return (

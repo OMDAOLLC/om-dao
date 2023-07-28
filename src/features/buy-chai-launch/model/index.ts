@@ -1,1 +1,1 @@
-export * from "./chai-form.store";
+export * from './chai-form.store';

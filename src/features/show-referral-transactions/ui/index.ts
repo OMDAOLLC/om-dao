@@ -1,2 +1,2 @@
-export * from './ReferralTransactions'
-export * from './ReferralTransactionsList'
+export * from './ReferralTransactions';
+export * from './ReferralTransactionsList';

@@ -1,5 +1,4 @@
-
-import { ReferralProjects } from "../../features/show-referral-projects";
+import { ReferralProjects } from '../../features/show-referral-projects';
 
 export const ReferralPage = () => (
   <>

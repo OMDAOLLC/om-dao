@@ -1,13 +1,13 @@
-import { FC, useState } from "react";
-import { BaseTokensForm } from "../../base-tokens-form";
-import { observer } from "mobx-react-lite";
-import { TIGRFormLaunchStore } from "../model";
+import { FC, useState } from 'react';
+import { BaseTokensForm } from '../../base-tokens-form';
+import { observer } from 'mobx-react-lite';
+import { TIGRFormLaunchStore } from '../model';
 
-import { TokenAddButton } from "../../add-token-to-metamask";
-import { useAccount } from "wagmi";
-import { useRootStore } from "../../../app/use-root-store";
-import { useTranslation } from "react-i18next";
-import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
+import { TokenAddButton } from '../../add-token-to-metamask';
+import { useAccount } from 'wagmi';
+import { useRootStore } from '../../../app/use-root-store';
+import { useTranslation } from 'react-i18next';
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
 
 export const TIGRFormLaunch: FC = observer(() => {
   const { t } = useTranslation();
@@ -29,10 +29,10 @@ export const TIGRFormLaunch: FC = observer(() => {
   return (
     <>
       <BaseTokensForm
-        title={t("common.purchaseToken", { symbol: TOKEN_SYMBOLS.TIGR })}
+        title={t('common.purchaseToken', { symbol: ETokenSymbols.TIGR })}
         onSubmit={onSubmit}
-        sourceContractSymbol={TOKEN_SYMBOLS.OMD}
-        destinationContractSymbol={TOKEN_SYMBOLS.TIGR}
+        sourceContractSymbol={ETokenSymbols.OMD}
+        destinationContractSymbol={ETokenSymbols.TIGR}
         calculateDestinationAmount={calculateDestinationAmount}
         swapStatus={swapStatus}
         isLoading={isLoading}
@@ -41,11 +41,11 @@ export const TIGRFormLaunch: FC = observer(() => {
       />
       <TokenAddButton
         className="w-full"
-        text={t("common.addToken", {
-          symbol: TOKEN_SYMBOLS.TIGR,
-          walletName: "MetaMask",
+        text={t('common.addToken', {
+          symbol: ETokenSymbols.TIGR,
+          walletName: 'MetaMask',
         })}
-        tokenSymbol={TOKEN_SYMBOLS.TIGR}
+        tokenSymbol={ETokenSymbols.TIGR}
       />
     </>
   );

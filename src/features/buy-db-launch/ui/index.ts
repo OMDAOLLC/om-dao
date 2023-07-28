@@ -1,1 +1,1 @@
-export * from "./DBForm";
+export * from './DBForm';

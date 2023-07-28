@@ -1,1 +1,1 @@
-export * from "./MAGICForm";
+export * from './MAGICForm';

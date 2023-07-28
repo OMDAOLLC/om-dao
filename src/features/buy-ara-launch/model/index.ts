@@ -1,1 +1,1 @@
-export * from "./ara-form.store";
+export * from './ara-form.store';

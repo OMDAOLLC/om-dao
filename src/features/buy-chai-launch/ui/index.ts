@@ -1,1 +1,1 @@
-export * from "./CHAIForm";
+export * from './CHAIForm';

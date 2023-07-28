@@ -1,17 +1,17 @@
-import { FC, useState } from "react";
-import classNames from "classnames";
+import { FC, useState } from 'react';
+import classNames from 'classnames';
 
-import styles from "./TokenAddButton.module.scss";
-import { TokenAddButtonStore } from "../../model";
-import { observer } from "mobx-react-lite";
-import { Button, ButtonProps } from "../../../../shared/ui";
-import {TOKEN_SYMBOLS} from "../../../../shared/constants/blockchain";
-import {useRootStore} from "../../../../app/use-root-store";
+import styles from './TokenAddButton.module.scss';
+import { TokenAddButtonStore } from '../../model';
+import { observer } from 'mobx-react-lite';
+import { Button, ButtonProps } from '../../../../shared/ui';
+import { ETokenSymbols } from '../../../../shared/constants/blockchain';
+import { useRootStore } from '../../../../app/use-root-store';
 
 export interface TokenAddButtonProps extends ButtonProps {
   className?: string;
   text: string;
-  tokenSymbol: TOKEN_SYMBOLS;
+  tokenSymbol: ETokenSymbols;
 }
 
 /**
@@ -20,7 +20,7 @@ export interface TokenAddButtonProps extends ButtonProps {
  */
 export const TokenAddButton: FC<TokenAddButtonProps> = observer(
   ({ className, tokenSymbol, text, ...otherProps }) => {
-      const rootStore = useRootStore()
+    const rootStore = useRootStore();
     const [{ addToken }] = useState(
       () => new TokenAddButtonStore(tokenSymbol, window.ethereum, rootStore)
     );

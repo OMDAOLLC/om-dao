@@ -1,11 +1,11 @@
-import { Contract } from "@ethersproject/contracts";
-import { BaseTokensFormSubmitData } from "../../base-tokens-form";
-import { formatUnits, parseUnits } from "@ethersproject/units";
-import { makeAutoObservable } from "mobx";
-import { OperationStatus } from "../../../shared/types";
-import { RootStore } from "../../../app/root-store";
-import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
-import {BLOCKCHAIN} from "../../../shared/constants/blockchain/blockchain";
+import { Contract } from '@ethersproject/contracts';
+import { BaseTokensFormSubmitData } from '../../base-tokens-form';
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { makeAutoObservable } from 'mobx';
+import { OperationStatus } from '../../../shared/types';
+import { RootStore } from '../../../app/root-store';
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
+import { BLOCKCHAIN } from '../../../shared/constants/blockchain/blockchain';
 
 export class StakeFormStore {
   private _unStakeDate: Date | undefined;
@@ -73,22 +73,24 @@ export class StakeFormStore {
   };
 
   public get sourceContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][TOKEN_SYMBOLS.OMD]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[ETokenSymbols.OMD];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
   }
 
   public get destinationContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][TOKEN_SYMBOLS.STOMD]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[ETokenSymbols.STOMD];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
   }
 

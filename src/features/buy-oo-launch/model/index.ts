@@ -1,1 +1,1 @@
-export * from "./oo-form.store";
+export * from './oo-form.store';

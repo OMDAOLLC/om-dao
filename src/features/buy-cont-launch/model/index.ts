@@ -1,1 +1,1 @@
-export * from "./cont-form.store";
+export * from './cont-form.store';

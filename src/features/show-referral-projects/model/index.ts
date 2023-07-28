@@ -1,1 +1,1 @@
-export * from "./referral-projects-store"
+export * from './referral-projects-store';

@@ -1,1 +1,1 @@
-export * from "./DELCForm";
+export * from './DELCForm';

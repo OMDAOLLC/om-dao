@@ -1,8 +1,8 @@
-import { FC } from "react";
-import classNames from "classnames";
+import { FC } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Loader.module.scss";
-import { useTranslation } from "react-i18next";
+import styles from './Loader.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export interface ILoaderProps {
   text?: string;
@@ -18,7 +18,7 @@ export const Loader: FC<ILoaderProps> = ({
 }) => {
   const { t } = useTranslation();
   const classes = classNames(styles.loader, { [styles.mask]: mask }, className);
-  const loaderText = text || `${t("common.loading")}...`;
+  const loaderText = text || `${t('common.loading')}...`;
 
   return (
     <div className={classes} {...otherProps}>

@@ -1,16 +1,15 @@
-import {en} from "./en";
-import {ru} from "./ru";
+import { en } from './en';
+import { ru } from './ru';
 
 export const resources = {
-    ru: {
-        translation: {
-            ...ru,
-        },
+  ru: {
+    translation: {
+      ...ru,
     },
-    en: {
-        translation: {
-            ...en,
-        },
+  },
+  en: {
+    translation: {
+      ...en,
     },
-
-}
+  },
+};

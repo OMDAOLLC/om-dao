@@ -1,14 +1,14 @@
-import { FC } from "react";
-import { useTranslation } from "react-i18next";
-import classNames from "classnames";
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 export const ButtonChangeLanguage: FC = () => {
   const { i18n } = useTranslation();
   const onClick = (): void => {
-    if (i18n.language === "ru") {
-      i18n.changeLanguage("en");
+    if (i18n.language === 'ru') {
+      i18n.changeLanguage('en');
     } else {
-      i18n.changeLanguage("ru");
+      i18n.changeLanguage('ru');
     }
   };
 
@@ -16,7 +16,7 @@ export const ButtonChangeLanguage: FC = () => {
     <button onClick={onClick}>
       <span
         className={classNames({
-          "text-[#5557a4] font-bold": i18n.language === "ru",
+          'text-[#5557a4] font-bold': i18n.language === 'ru',
         })}
       >
         RU&nbsp;
@@ -24,7 +24,7 @@ export const ButtonChangeLanguage: FC = () => {
       <span className="font-bold">|</span>
       <span
         className={classNames({
-          "text-[#5557a4] font-bold": i18n.language === "en",
+          'text-[#5557a4] font-bold': i18n.language === 'en',
         })}
       >
         &nbsp;EN

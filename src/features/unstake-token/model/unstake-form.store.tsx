@@ -1,27 +1,27 @@
-import { Contract } from "@ethersproject/contracts";
-import { formatUnits } from "@ethersproject/units";
-import { format } from "date-fns";
-import { makeAutoObservable } from "mobx";
-import { OperationStatus } from "../../../shared/types";
-import { RootStore } from "../../../app/root-store";
-import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
-import {BLOCKCHAIN} from "../../../shared/constants/blockchain/blockchain";
+import { Contract } from '@ethersproject/contracts';
+import { formatUnits } from '@ethersproject/units';
+import { format } from 'date-fns';
+import { makeAutoObservable } from 'mobx';
+import { OperationStatus } from '../../../shared/types';
+import { RootStore } from '../../../app/root-store';
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
+import { BLOCKCHAIN } from '../../../shared/constants/blockchain/blockchain';
 
 export class UnstakeFormStore {
-  private _inStake: string = "0";
+  private _inStake = '0';
 
-  private _dividends: string = "0";
+  private _dividends = '0';
 
   private _unstakeDate: Date = new Date();
 
-  private _isLoading: boolean = true;
+  private _isLoading = true;
 
   private _status: OperationStatus = OperationStatus.READY;
 
   constructor(
     private _rootStore: RootStore,
-    private _stakeTokenSymbol: TOKEN_SYMBOLS = TOKEN_SYMBOLS.STOMD,
-    private _unstakeTokenSymbol: TOKEN_SYMBOLS = TOKEN_SYMBOLS.OMD
+    private _stakeTokenSymbol: ETokenSymbols = ETokenSymbols.STOMD,
+    private _unstakeTokenSymbol: ETokenSymbols = ETokenSymbols.OMD
   ) {
     makeAutoObservable(this);
     this.fetchUnStakeInfo();
@@ -69,7 +69,7 @@ export class UnstakeFormStore {
       );
     } catch (e) {
       console.log(e);
-      this.dividends = "0";
+      this.dividends = '0';
     }
   };
 
@@ -108,7 +108,8 @@ export class UnstakeFormStore {
   };
 
   private get _stakeContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][this._stakeTokenSymbol]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[this._stakeTokenSymbol];
 
     return new Contract(
       token.address,
@@ -118,12 +119,13 @@ export class UnstakeFormStore {
   }
 
   private get _unStakeContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][this._unstakeTokenSymbol]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[this._unstakeTokenSymbol];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
   }
 
@@ -140,7 +142,7 @@ export class UnstakeFormStore {
   }
 
   public get formattedUnstakeDate(): string {
-    return format(this._unstakeDate, "dd.MM.yyyy в  HH:mm");
+    return format(this._unstakeDate, 'dd.MM.yyyy в  HH:mm');
   }
 
   public get isLoading(): boolean {

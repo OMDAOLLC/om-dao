@@ -1,20 +1,20 @@
-import { Contract } from "@ethersproject/contracts";
-import { makeAutoObservable } from "mobx";
-import { SwapStatus } from "../types";
+import { Contract } from '@ethersproject/contracts';
+import { makeAutoObservable } from 'mobx';
+import { SwapStatus } from '../types';
 
-import { formatUnits, parseUnits } from "@ethersproject/units";
-import { BaseTokensFormSubmitData } from "../../base-tokens-form";
-import { RootStore } from "../../../app/root-store";
-import {TOKEN_SYMBOLS} from "../../../shared/constants/blockchain";
-import {BLOCKCHAIN} from "../../../shared/constants/blockchain/blockchain";
+import { formatUnits, parseUnits } from '@ethersproject/units';
+import { BaseTokensFormSubmitData } from '../../base-tokens-form';
+import { RootStore } from '../../../app/root-store';
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
+import { BLOCKCHAIN } from '../../../shared/constants/blockchain/blockchain';
 
 export class SwapFormStore {
   private _swapStatus: SwapStatus = SwapStatus.READY;
 
   constructor(
     private _rootStore: RootStore,
-    private _tokenASymbol: TOKEN_SYMBOLS,
-    private _tokenBSymbol: TOKEN_SYMBOLS
+    private _tokenASymbol: ETokenSymbols,
+    private _tokenBSymbol: ETokenSymbols
   ) {
     makeAutoObservable(this);
   }
@@ -38,7 +38,7 @@ export class SwapFormStore {
       const allowedAmount = await this.fetchAllowedAmount();
 
       if (allowedAmount !== 0 && allowedAmount < +amount) {
-        await this.approveSwapAmount("0");
+        await this.approveSwapAmount('0');
       }
 
       if (allowedAmount < +amount) {
@@ -118,7 +118,7 @@ export class SwapFormStore {
 
       const unit256Amount = parseUnits(amount, decimals);
       const sellTransaction = await this._destinationContract.sellToken(
-          unit256Amount
+        unit256Amount
       );
       this.swapStatus = SwapStatus.AWAITING_BLOCK_MINING;
       await sellTransaction.wait();
@@ -130,22 +130,24 @@ export class SwapFormStore {
   };
 
   public get _sourceContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][this._tokenASymbol]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[this._tokenASymbol];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
   }
 
   public get _destinationContract(): Contract {
-    const token = BLOCKCHAIN[this._rootStore.chain.id]["tokens"][this._tokenBSymbol]
+    const token =
+      BLOCKCHAIN[this._rootStore.chain.id].tokens[this._tokenBSymbol];
 
     return new Contract(
-        token.address,
-        token.abi,
-        this._rootStore.signerOrProvider
+      token.address,
+      token.abi,
+      this._rootStore.signerOrProvider
     );
   }
 

@@ -2,13 +2,15 @@ import {
   IFetchProjectTransactionsRequest,
   IProjectTransaction,
   referralApi,
-} from "../../../entities/referral-project";
-import { makeAutoObservable } from "mobx";
+} from '../../../entities/referral-project';
+import { makeAutoObservable } from 'mobx';
 
 export class ReferralTransactionsStore {
   private _transactions: IProjectTransaction[] = [];
+
   private _isFetchingTransactions = false;
-  private _lastScannedBlock: number = -1;
+
+  private _lastScannedBlock = -1;
 
   constructor(requestParams: IFetchProjectTransactionsRequest) {
     makeAutoObservable(this);
