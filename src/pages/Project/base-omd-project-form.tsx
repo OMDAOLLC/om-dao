@@ -1,22 +1,32 @@
+import { ETokenSymbols } from '../../shared/constants/blockchain';
 import { FC, useState } from 'react';
-import { BaseTokensForm } from '../../base-tokens-form';
 import { observer } from 'mobx-react-lite';
-import { TIGRFormLaunchStore } from '../model';
-
-import { TokenAddButton } from '../../add-token-to-metamask';
-import { useAccount } from 'wagmi';
-import { useRootStore } from '../../../app/use-root-store';
 import { useTranslation } from 'react-i18next';
-import { ETokenSymbols } from '../../../shared/constants/blockchain';
+import { useRootStore } from '../../app/use-root-store';
+import { useAccount } from 'wagmi';
+import { BaseTokensForm } from '../../features/base-tokens-form';
+import { TokenAddButton } from '../../features/add-token-to-metamask';
+import { BaseOMDProjectStore } from './base-omd-project-form-store';
 
-export const TIGRFormLaunch: FC = observer(() => {
+export interface IBaseProjectFormProps {
+  symbol: ETokenSymbols;
+}
+
+export const BaseOMDProjectForm: FC<IBaseProjectFormProps> = observer(({ symbol }) => {
   const { t } = useTranslation();
   const rootStore = useRootStore();
-  const dcon = useAccount();
+  const account = useAccount();
   const { refCode } = useRootStore();
   const [store] = useState(
-    () => new TIGRFormLaunchStore(rootStore, refCode, dcon.address)
+    () =>
+      new BaseOMDProjectStore({
+        rootStore,
+        refCode,
+        accountAddress: account.address,
+        symbol,
+      })
   );
+
   const {
     isLoading,
     onSubmit,
@@ -29,10 +39,10 @@ export const TIGRFormLaunch: FC = observer(() => {
   return (
     <>
       <BaseTokensForm
-        title={t('common.purchaseToken', { symbol: ETokenSymbols.TIGR })}
+        title={t('common.purchaseToken', { symbol })}
         onSubmit={onSubmit}
         sourceContractSymbol={ETokenSymbols.OMD}
-        destinationContractSymbol={ETokenSymbols.TIGR}
+        destinationContractSymbol={symbol}
         calculateDestinationAmount={calculateDestinationAmount}
         swapStatus={swapStatus}
         isLoading={isLoading}
@@ -42,10 +52,10 @@ export const TIGRFormLaunch: FC = observer(() => {
       <TokenAddButton
         className="w-full"
         text={t('common.addToken', {
-          symbol: ETokenSymbols.TIGR,
+          symbol,
           walletName: 'MetaMask',
         })}
-        tokenSymbol={ETokenSymbols.TIGR}
+        tokenSymbol={symbol}
       />
     </>
   );

@@ -1,4 +1,4 @@
-export const PATHS: { [key: string]: string } = {
+export const PATHS = {
   ROOT: '/',
   STAKE: '/stake',
   PROJECTS: '/projects',

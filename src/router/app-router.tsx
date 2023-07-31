@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate, redirect } from 'react-router-dom';
 import {
   ExchangePage,
   ProjectPage,
@@ -30,10 +30,24 @@ export const appRouter = createBrowserRouter([
       {
         path: `${PATHS.PROJECTS}/:symbol`,
         element: <ProjectPage />,
+        loader: async ({ params, request, context }) => {
+          if(!params.symbol) {
+            return redirect(PATHS.ROOT)
+          }
+
+          return null
+        }
       },
       {
         path: `${PATHS.PROJECTS}/:symbol/:refcode`,
         element: <ProjectPage />,
+        loader: async ({ params, request, context }) => {
+          if(!params.symbol) {
+            return redirect(PATHS.ROOT)
+          }
+
+          return null
+        }
       },
       {
         path: `${PATHS.REFERRAL}/:refcode`,
