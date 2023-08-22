@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 
 import { SwapFormStore } from '../../model';
 import { observer } from 'mobx-react-lite';
-import { useNavigate } from 'react-router';
 import { BaseTokensForm } from '../../../base-tokens-form';
 import { useSearchParams } from 'react-router-dom';
 import { calculateSwapDestinationAmount } from '../../lib';
@@ -13,7 +12,6 @@ import { ETokenSymbols } from '../../../../shared/constants/blockchain';
 export const SwapForm: FC = observer(() => {
   const { t } = useTranslation();
   const rootStore = useRootStore();
-  const navigate = useNavigate();
 
   const [params] = useSearchParams([
     ['tokenA', ETokenSymbols.USDT],

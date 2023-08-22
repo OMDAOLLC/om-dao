@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 import { TokenAddButton } from './TokenAddButton';
 import { useTranslation } from 'react-i18next';
