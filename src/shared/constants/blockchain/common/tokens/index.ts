@@ -15,3 +15,4 @@ export * from './omdwLed';
 export * from './omdwMS';
 export * from './omFP';
 export * from './omOo';
+export * from './omIIIA';
