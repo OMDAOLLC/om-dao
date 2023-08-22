@@ -1,7 +1,6 @@
 import { ETokenSymbols, ITokenConstants } from '../../common';
 import { USDT } from './usdt';
 import { OMD } from './omd';
-import { stOMD } from './stOmd';
 import { omdwTigr } from './omdwTigr';
 import { AG } from './AG';
 import { omAra } from './omAra';
@@ -21,7 +20,6 @@ import { omdwMS } from './omdwMS';
 export const ETHEREUM_TOKENS: Record<ETokenSymbols, ITokenConstants> = {
   USDT,
   OMD,
-  stOMD,
   omdwTigr,
   AG,
   omAra,

@@ -27,12 +27,6 @@ export const SwapForm: FC = observer(() => {
     () => new SwapFormStore(rootStore, tokenASymbol, tokenBSymbol)
   );
 
-  // useEffect(() => {
-  //   if (swapStatus === SwapStatus.SUCCESS) {
-  //     navigate(PATHS.STAKE);
-  //   }
-  // }, [swapStatus]);
-
   return (
     <BaseTokensForm
       title={t('common.swapTokens')}

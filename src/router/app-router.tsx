@@ -4,7 +4,6 @@ import {
   ProjectPage,
   ProjectsPage,
   RootLayout,
-  StakePage,
   ReferralPage,
   ReferralTransactionsPage,
 } from '../pages';
@@ -18,10 +17,6 @@ export const appRouter = createBrowserRouter([
       {
         path: PATHS.ROOT,
         element: <ExchangePage />,
-      },
-      {
-        path: PATHS.STAKE,
-        element: <StakePage />,
       },
       {
         path: PATHS.PROJECTS,

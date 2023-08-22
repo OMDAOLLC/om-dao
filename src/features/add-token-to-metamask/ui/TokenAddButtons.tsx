@@ -27,14 +27,6 @@ export const TokenAddButtons: FC<ITokenAddButtonsProps> = ({ className }) => {
         })}
         tokenSymbol={ETokenSymbols.OMD}
       />
-      <TokenAddButton
-        className="w-full"
-        text={t('common.addToken', {
-          symbol: ETokenSymbols.STOMD,
-          walletName: 'MetaMask',
-        })}
-        tokenSymbol={ETokenSymbols.STOMD}
-      />
     </div>
   ) : (
     <></>

@@ -1,6 +1,5 @@
 export * from './usdt';
 export * from './omd';
-export * from './stOMD';
 export * from './omdwTigr';
 export * from './omAra';
 export * from './AG';

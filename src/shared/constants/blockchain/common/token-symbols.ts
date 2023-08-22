@@ -1,7 +1,6 @@
 export enum ETokenSymbols {
   USDT = 'USDT',
   OMD = 'OMD',
-  STOMD = 'stOMD',
   TIGR = 'omdwTigr',
   CR = 'omdwCRB',
   CONS = 'omdwCons',

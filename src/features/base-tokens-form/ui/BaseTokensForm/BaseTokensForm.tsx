@@ -32,7 +32,7 @@ export interface BaseTokensFormProps {
   disabledText?: string;
   maxCount?: string;
   getupdateMaxCount?: () => Promise<any>;
-  mode?: 'swap' | 'stake';
+  mode?: 'swap';
 }
 
 export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
