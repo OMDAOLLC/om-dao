@@ -27,6 +27,10 @@ export const App: FC = observer(() => {
               projectId={WALLET_CONNECT_PROJECT_ID}
               ethereumClient={ethereumClient}
               themeMode="dark"
+              themeVariables={{
+                "--w3m-accent-color": 'rgb(203,77,140)',
+                "--w3m-background-color": 'rgb(203,77,140)'
+              }}
               enableNetworkView={true}
             />
           </>
