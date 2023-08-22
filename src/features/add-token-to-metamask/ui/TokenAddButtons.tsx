@@ -13,12 +13,7 @@ export const TokenAddButtons: FC<ITokenAddButtonsProps> = ({ className }) => {
   const isShowButtons = window.ethereum?.isMetaMask;
 
   return isShowButtons ? (
-    <div
-      className={classNames(
-        'grid gap-4 grid-cols-1 lg:grid-cols-2 pb-4',
-        className
-      )}
-    >
+    <div className={classNames('grid gap-4 grid-cols-1 pb-4', className)}>
       <TokenAddButton
         className="w-full"
         text={t('common.addToken', {
