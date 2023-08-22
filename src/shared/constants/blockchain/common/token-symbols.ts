@@ -16,4 +16,5 @@ export enum ETokenSymbols {
   FP = 'omFP',
   DB = 'omDB',
   CRD = 'omCRD',
+  IIIA = 'omIIIA',
 }
