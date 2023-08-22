@@ -1,4 +1,4 @@
-import common from "./common.json"
+import common from './common.json';
 export const ru = {
-    common
-}
+  common,
+};

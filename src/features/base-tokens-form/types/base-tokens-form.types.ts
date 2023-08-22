@@ -1,7 +1,7 @@
-import { Contract } from "@ethersproject/contracts";
-import { BaseTokenInfo } from "../../../entities/token/types";
+import { Contract } from '@ethersproject/contracts';
+import { BaseTokenInfo } from '../../../entities/token/types';
 
-export interface BaseContractInfo extends Omit<BaseTokenInfo, "address"> {
+export interface BaseContractInfo extends Omit<BaseTokenInfo, 'address'> {
   balance: string;
   image?: string;
 }

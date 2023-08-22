@@ -1,21 +1,34 @@
-import { makeAutoObservable } from "mobx";
-import { GetProviderResult, watchProvider } from "@wagmi/core";
-import { AVAILABLE_NETWORK } from "../../../shared/config";
-import {BaseProvider, Provider} from "@ethersproject/providers";
+import { makeAutoObservable } from 'mobx';
+import { getNetwork, watchNetwork, watchPublicClient } from '@wagmi/core';
+import { PublicClient } from 'wagmi';
+import { getEthersProvider } from '../../../shared/lib';
+import { Provider } from '@ethersproject/providers';
 
 export class ProviderStore {
-  private _provider: null | GetProviderResult = null;
+  private _provider: null | Provider = null;
 
   private _isInitialized = false;
-  constructor(defaultProvider: BaseProvider) {
+
+  private _unWatchProvider: (() => void) | undefined = undefined;
+
+  constructor(defaultProvider: PublicClient) {
     makeAutoObservable(this);
-    this._provider = defaultProvider;
+    this._provider = getEthersProvider({ chainId: defaultProvider.chain.id });
     this.init();
   }
 
   protected init = () => {
     try {
-      watchProvider({ chainId: AVAILABLE_NETWORK }, this.onChangeProvider);
+      const network = getNetwork();
+      if (network.chain?.id) {
+        this.reInitProviderWatcher(network.chain.id);
+      }
+
+      watchNetwork((net) => {
+        if (net.chain?.id) {
+          this.reInitProviderWatcher(net.chain?.id);
+        }
+      });
     } catch (e) {
       console.log(e);
     } finally {
@@ -23,13 +36,25 @@ export class ProviderStore {
     }
   };
 
-  private onChangeProvider = (data: GetProviderResult) => {
-    this._provider = data;
+  private reInitProviderWatcher = (chainId: number) => {
+    if (this._unWatchProvider) {
+      this._unWatchProvider();
+    }
+
+    this._unWatchProvider = watchPublicClient(
+      { chainId },
+      this.onChangeProvider
+    );
+  };
+
+  private onChangeProvider = (data: PublicClient) => {
+    const provider = getEthersProvider({ chainId: data.chain.id });
+    this._provider = provider;
   };
 
   get provider(): Provider {
     if (!this._provider) {
-      throw Error("Provider не существует");
+      throw Error('Provider не существует');
     }
 
     return this._provider;

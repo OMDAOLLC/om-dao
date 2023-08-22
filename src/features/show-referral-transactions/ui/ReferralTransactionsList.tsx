@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { IProjectTransaction } from "../../../entities/referral-project";
-import { Panel } from "../../../shared/ui";
-import { format } from "date-fns";
+import { FC } from 'react';
+import { IProjectTransaction } from '../../../entities/referral-project';
+import { Panel } from '../../../shared/ui';
+import { format } from 'date-fns';
 
 export interface IReferralTransactionsListProps {
   transactions: IProjectTransaction[];
@@ -35,7 +35,9 @@ export const ReferralTransactionsList: FC<IReferralTransactionsListProps> = ({
                 <Panel className="grid grid-cols-4 gap-2" key={transactionHash}>
                   <p>{transactionHash.slice(0, 8)}...</p>
                   <p>{blockNumber}</p>
-                  <p>{format(new Date(timestamp * 1000), "dd.MM.yyyy в  HH:mm")}</p>
+                  <p>
+                    {format(new Date(timestamp * 1000), 'dd.MM.yyyy в  HH:mm')}
+                  </p>
                   <p>{amount / 1000000}</p>
                 </Panel>
               )

@@ -1,7 +1,7 @@
-import { ButtonHTMLAttributes, FC } from "react";
-import classNames from "classnames";
+import { ButtonHTMLAttributes, FC } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Button.module.scss";
+import styles from './Button.module.scss';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   full?: boolean;

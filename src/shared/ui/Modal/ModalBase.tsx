@@ -1,18 +1,18 @@
-import { Dialog } from "@headlessui/react";
+import { Dialog } from '@headlessui/react';
 import React, {
   ComponentType,
   FC,
   HTMLProps,
   ReactNode,
   useCallback,
-} from "react";
-import { TCSSValue, TSizePreset } from "../../types";
-import { TransitionPreset } from "../TransitionPreset";
+} from 'react';
+import { TCSSValue, TSizePreset } from '../../types';
+import { TransitionPreset } from '../TransitionPreset';
 
 const MODAL_WIDTH: Record<TSizePreset, TCSSValue> = {
-  small: "320px",
-  medium: "640px",
-  large: "920px",
+  small: '320px',
+  medium: '640px',
+  large: '920px',
 };
 
 interface CustomBaseModalProps {
@@ -59,10 +59,9 @@ export const ModalBase: FC<TModalBaseProps> = ({
   footer,
   closable,
   useMask,
-  width = "large",
+  width = 'large',
   open,
   unmount,
-  zIndex,
   useOutsideClick,
   ...otherProps
 }) => {
@@ -70,7 +69,7 @@ export const ModalBase: FC<TModalBaseProps> = ({
     onClose(false);
   }, [onClose]);
 
-  const isTitle = typeof header === "string";
+  const isTitle = typeof header === 'string';
   //@ts-ignore
   const modalWidth = width in MODAL_WIDTH ? MODAL_WIDTH[width] : width;
 
@@ -119,7 +118,7 @@ export const ModalBase: FC<TModalBaseProps> = ({
   );
 };
 
-export interface IDivProps extends HTMLProps<HTMLDivElement> {}
+export type IDivProps = HTMLProps<HTMLDivElement>;
 const Div: FC<IDivProps> = ({ children, ...otherProps }) => {
   return <div {...otherProps}>{children}</div>;
 };

@@ -1,1 +1,1 @@
-export * from "./referral-api";
+export * from './referral-api';

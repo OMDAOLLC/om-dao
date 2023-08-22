@@ -1,11 +1,11 @@
-import {FC, useLayoutEffect, useState} from "react";
+import { FC, useLayoutEffect, useState } from 'react';
 
 export interface ITokenIconProps {
   tokenSymbol: string;
 }
 
 export const TokenIcon: FC<ITokenIconProps> = ({ tokenSymbol }) => {
-  const [path, setPath] = useState("");
+  const [path, setPath] = useState('');
 
   useLayoutEffect(() => {
     updateTokenImg(tokenSymbol);

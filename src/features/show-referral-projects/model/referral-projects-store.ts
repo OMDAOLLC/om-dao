@@ -1,8 +1,8 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable } from 'mobx';
 import {
   IReferralProject,
   referralApi,
-} from "../../../entities/referral-project";
+} from '../../../entities/referral-project';
 
 export class ReferralProjectsStore {
   private _projects: IReferralProject[] = [];

@@ -1,1 +1,1 @@
-export * from "./referral-transactions-store"
+export * from './referral-transactions-store';

@@ -1,1 +1,1 @@
-export * from "./ModalTerms"
+export * from './ModalTerms';

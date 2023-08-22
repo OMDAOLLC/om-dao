@@ -1,1 +1,1 @@
-export * from "./ARAFormSwap";
+export * from './ARAFormSwap';

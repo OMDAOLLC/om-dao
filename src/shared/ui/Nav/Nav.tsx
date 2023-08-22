@@ -1,24 +1,25 @@
-import React, { FC, useMemo } from "react";
-import classNames from "classnames";
+import React, { FC, useMemo } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Nav.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
-import { PATHS } from "../../../router";
-import {useTranslation} from "react-i18next";
+import styles from './Nav.module.scss';
+import { NavLink, useLocation } from 'react-router-dom';
+import { PATHS } from '../../../router';
+import { useTranslation } from 'react-i18next';
 
-export interface INavProps {}
-
-export const Nav: FC<INavProps> = () => {
+export const Nav: FC = () => {
   const { pathname: currentPathName } = useLocation();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const links: {pathName: string, label: string}[] = useMemo(() => {
+  const links: { pathName: string; label: string }[] = useMemo(() => {
     return Object.entries(PATHS)
-        .filter(([key]) => key !== "REFERRAL")
-        .map(([key, value]) => {
-          return { pathName: value, label: t(`common.routes.${key.toLowerCase()}`)}
-        })
-  }, [t])
+      .filter(([key]) => key !== 'REFERRAL')
+      .map(([key, value]) => {
+        return {
+          pathName: value,
+          label: t(`common.routes.${key.toLowerCase()}`),
+        };
+      });
+  }, [t]);
 
   return (
     <nav className={styles.nav}>
@@ -31,7 +32,7 @@ export const Nav: FC<INavProps> = () => {
           to={pathName}
         >
           {label}
-          </NavLink>
+        </NavLink>
       ))}
     </nav>
   );

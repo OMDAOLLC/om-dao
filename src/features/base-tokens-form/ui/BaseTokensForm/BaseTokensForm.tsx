@@ -1,24 +1,25 @@
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
-import styles from "./BaseTokensForm.module.scss";
-import { TOKEN_ABI, TOKEN_ADDRESS, TOKEN_SYMBOLS } from "../../../../entities";
-import { observer } from "mobx-react-lite";
-import { SourceContract } from "../SourceContract";
-import { DestinationContract } from "../DestinationContract";
-import { BaseContractInfo, BaseTokensFormSubmitData } from "../../types";
-import { Button, Loader } from "../../../../shared/ui";
-import { Arrow } from "../../../../shared/ui";
-import { useAccount, useBalance, useContractRead } from "wagmi";
-import { Web3Button } from "@web3modal/react";
-import { useTranslation } from "react-i18next";
+import styles from './BaseTokensForm.module.scss';
+import { observer } from 'mobx-react-lite';
+import { SourceContract } from '../SourceContract';
+import { DestinationContract } from '../DestinationContract';
+import { BaseContractInfo, BaseTokensFormSubmitData } from '../../types';
+import { Button, Loader, Arrow } from '../../../../shared/ui';
+
+import { useAccount, useBalance, useChainId, useContractRead } from 'wagmi';
+import { Web3Button } from '@web3modal/react';
+import { useTranslation } from 'react-i18next';
 import { OperationStatus } from '../../../../shared/types';
 import { SwapStatus } from '../../../swap-tokens';
+import { ETokenSymbols } from '../../../../shared/constants/blockchain';
+import { BLOCKCHAIN } from '../../../../shared/constants/blockchain/blockchain';
 
 export interface BaseTokensFormProps {
   title: string;
   onSubmit: (data: BaseTokensFormSubmitData) => Promise<void>;
-  sourceContractSymbol: TOKEN_SYMBOLS;
-  destinationContractSymbol: TOKEN_SYMBOLS;
+  sourceContractSymbol: ETokenSymbols;
+  destinationContractSymbol: ETokenSymbols;
   isLoading: boolean;
   swapStatus?: OperationStatus | SwapStatus;
   className?: string;
@@ -31,7 +32,7 @@ export interface BaseTokensFormProps {
   disabledText?: string;
   maxCount?: string;
   getupdateMaxCount?: () => Promise<any>;
-  mode?: "swap" | "stake"
+  mode?: 'swap';
 }
 
 export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
@@ -41,7 +42,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     destinationContractSymbol,
     className,
     isLoading,
-     swapStatus,
+    swapStatus,
     onSubmit,
     calculateDestinationAmount,
     canRearrangeContracts,
@@ -49,11 +50,11 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     disabledText,
     maxCount,
     getupdateMaxCount,
-    mode = "swap"
+    mode = 'swap',
   }) => {
     const { t } = useTranslation();
 
-    const loadingText = t(`common.${mode}Status.${swapStatus}`)
+    const loadingText = t(`common.${mode}Status.${swapStatus}`);
     const { data: sd } = useBaseTokenInfo(sourceContractSymbol, true);
 
     const { data: dd } = useBaseTokenInfo(destinationContractSymbol, true);
@@ -64,7 +65,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
 
     const [destinationData, setDestinationData] = useState<BaseContractInfo>();
 
-    const [sourceAmount, setSourceAmount] = useState("0");
+    const [sourceAmount, setSourceAmount] = useState('0');
 
     const [isRearranged, setIsRearranged] = useState(false);
 
@@ -101,14 +102,14 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
         const isValid = validatePattern.test(value);
 
         if (isValid) {
-          const isStartWithDot = value.startsWith(".");
+          const isStartWithDot = value.startsWith('.');
 
           if (isStartWithDot) {
             const pattern = /^\.(?<float>\d{0,6})$/;
 
             const newSourceAmount = value.replace(pattern, (...props) => {
               const groups = props.pop();
-              let result = "0.";
+              let result = '0.';
 
               if (groups.float !== undefined) {
                 result += groups.float;
@@ -123,7 +124,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
 
             const newSourceAmount = value.replace(pattern, (...props) => {
               const groups = props.pop();
-              let result = "";
+              let result = '';
 
               if (groups.int !== undefined) {
                 result += Number(groups.int).toString();
@@ -154,12 +155,12 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     }, [sourceAmount, calculateDestinationAmount, isRearranged]);
 
     const destinationExchangeRate = () => {
-      let destinationAmountForOneToken = "1";
+      let destinationAmountForOneToken = '1';
 
       if (calculateDestinationAmount) {
-        const processedValue = calculateDestinationAmount("1", isRearranged);
+        const processedValue = calculateDestinationAmount('1', isRearranged);
 
-        if (processedValue !== "0") {
+        if (processedValue !== '0') {
           destinationAmountForOneToken = processedValue;
         }
       }
@@ -174,12 +175,12 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
     };
 
     const sourceMaxCount = useMemo(() => {
-      let destinationAmountForOneToken = "1";
+      let destinationAmountForOneToken = '1';
 
       if (calculateDestinationAmount) {
-        const processedValue = calculateDestinationAmount("1", isRearranged);
+        const processedValue = calculateDestinationAmount('1', isRearranged);
 
-        if (processedValue !== "0") {
+        if (processedValue !== '0') {
           destinationAmountForOneToken = (1 / +processedValue).toString();
         }
       }
@@ -240,7 +241,7 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
                   </Button>
                 ) : (
                   <div className="flex justify-center items-center">
-                    <Web3Button label={t("common.connectWallet")} />
+                    <Web3Button label={t('common.connectWallet')} />
                   </div>
                 )}
               </>
@@ -255,22 +256,23 @@ export const BaseTokensForm: FC<BaseTokensFormProps> = observer(
 );
 
 const useBaseTokenInfo = (
-  tokenSymbol: TOKEN_SYMBOLS,
-  watch: boolean = false
+  tokenSymbol: ETokenSymbols,
+  watch = false
 ): { data: BaseContractInfo | undefined; isLoading: boolean } => {
+  const chainId = useChainId();
   const [result, setResult] = useState<BaseContractInfo>();
   const { address } = useAccount();
-
+  const token = BLOCKCHAIN[chainId].tokens[tokenSymbol];
   const { data: balance, isLoading: isLoadingBalance } = useBalance({
     address,
-    token: TOKEN_ADDRESS[tokenSymbol],
+    token: token.address,
     watch,
   });
 
   const { data: name, isLoading: isLoadingName } = useContractRead({
-    address: TOKEN_ADDRESS[tokenSymbol],
-    abi: TOKEN_ABI[tokenSymbol],
-    functionName: "name",
+    address: token.address,
+    abi: token.abi,
+    functionName: 'name',
   });
 
   useEffect(() => {
@@ -286,10 +288,10 @@ const useBaseTokenInfo = (
         .catch();
 
       setResult({
-        name: name as string,
-        decimals: balance ? balance.decimals.toString() : "0",
+        name: name as unknown as string,
+        decimals: balance ? balance.decimals.toString() : '0',
         symbol: tokenSymbol,
-        balance: balance ? balance.formatted : "0",
+        balance: balance ? balance.formatted : '0',
         image,
       });
     }

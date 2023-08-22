@@ -1,7 +1,7 @@
-import { FC } from "react";
-import classNames from "classnames";
+import { FC } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Logo.module.scss";
+import styles from './Logo.module.scss';
 
 export interface ILogoProps {
   className?: string;

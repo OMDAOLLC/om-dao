@@ -1,42 +1,30 @@
-import { makeAutoObservable } from "mobx";
-import { BaseTokenInfo } from "../types";
-import {
-  TOKEN_ADDRESS,
-  TOKEN_DECIMAL,
-  TOKEN_NAME,
-  TOKEN_SYMBOLS,
-} from "../../ethereum";
-import {Address} from "wagmi";
+import { makeAutoObservable, reaction } from 'mobx';
+import { BaseTokenInfo } from '../types';
+
+import { Address } from 'wagmi';
+import { ETokenSymbols } from '../../../shared/constants/blockchain';
+import { RootStore } from '../../../app/root-store';
+import { BLOCKCHAIN } from '../../../shared/constants/blockchain/blockchain';
 
 export class TokenStore {
-  private _decimals: string = "";
+  private _decimals = '';
 
-  private _address: Address = "0x";
+  private _address: Address = '0x';
 
-  private _name: string = "";
+  private _name = '';
 
-  constructor(private _symbol: TOKEN_SYMBOLS) {
+  constructor(private _symbol: ETokenSymbols, private _rootStore: RootStore) {
     makeAutoObservable(this);
 
-    this.name = TOKEN_NAME[_symbol];
-    this.decimals = TOKEN_DECIMAL[_symbol];
-    this.address = TOKEN_ADDRESS[_symbol];
+    const token = BLOCKCHAIN[this._rootStore.chain.id].tokens[_symbol];
+
+    this._name = token.name;
+    this._decimals = token.decimal;
+    this._address = token.address;
   }
 
   public get address(): Address {
     return this._address;
-  }
-
-  private set address(value: Address) {
-    this._address = value;
-  }
-
-  private set decimals(value: string) {
-    this._decimals = value;
-  }
-
-  private set name(value: string) {
-    this._name = value;
   }
 
   public get decimals(): string {
@@ -59,4 +47,15 @@ export class TokenStore {
       address: this.address,
     };
   }
+
+  updateTokenByChainReaction = reaction(
+    () => this._rootStore.chain,
+    (chain) => {
+      const token = BLOCKCHAIN[chain.id].tokens[this._symbol];
+
+      this._name = token.name;
+      this._decimals = token.decimal;
+      this._address = token.address;
+    }
+  );
 }

@@ -1,6 +1,6 @@
-import { FC, SVGProps } from "react";
+import { FC, SVGProps } from 'react';
 
-export interface ArrowProps extends SVGProps<SVGSVGElement> {}
+export type ArrowProps = SVGProps<SVGSVGElement>;
 
 export const Arrow: FC<ArrowProps> = ({ className, ...otherProps }) => {
   return (

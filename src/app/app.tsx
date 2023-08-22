@@ -12,29 +12,32 @@ import { Loader } from '../shared/ui';
 import { observer } from 'mobx-react-lite';
 
 export const App: FC = observer(() => {
-	const [rootStore] = useState(() => new RootStore());
-	const { isAppInitialized, ethereumClient, wagmiClient } = rootStore;
+  const [rootStore] = useState(() => new RootStore());
+  const { isAppInitialized, ethereumClient, wagmiConfig } = rootStore;
 
-	return (
-		<I18NProvider>
-			<RootStoreProvider rootStore={rootStore}>
-				{isAppInitialized ? (
-					<>
-						<WagmiConfig client={wagmiClient}>
-							<RouterProvider router={appRouter} />
-						</WagmiConfig>
-						<Web3Modal
-							projectId={WALLET_CONNECT_PROJECT_ID}
-							ethereumClient={ethereumClient}
-							themeMode="dark"
-							themeColor="magenta"
-							themeBackground="themeColor"
-						/>
-					</>
-				) : (
-					<Loader />
-				)}
-			</RootStoreProvider>
-		</I18NProvider>
-	);
+  return (
+    <I18NProvider>
+      <RootStoreProvider rootStore={rootStore}>
+        {isAppInitialized ? (
+          <>
+            <WagmiConfig config={wagmiConfig}>
+              <RouterProvider router={appRouter} />
+            </WagmiConfig>
+            <Web3Modal
+              projectId={WALLET_CONNECT_PROJECT_ID}
+              ethereumClient={ethereumClient}
+              themeMode="dark"
+              themeVariables={{
+                "--w3m-accent-color": 'rgb(203,77,140)',
+                "--w3m-background-color": 'rgb(203,77,140)'
+              }}
+              enableNetworkView={true}
+            />
+          </>
+        ) : (
+          <Loader />
+        )}
+      </RootStoreProvider>
+    </I18NProvider>
+  );
 });

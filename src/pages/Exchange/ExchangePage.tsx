@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import { SwapForm } from "../../features/swap-tokens";
-import { TokenAddButtons } from "../../features/add-token-to-metamask";
+import { SwapForm } from '../../features/swap-tokens';
+import { TokenAddButtons } from '../../features/add-token-to-metamask';
 
 export const ExchangePage: FC = () => {
   return (

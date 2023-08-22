@@ -1,7 +1,7 @@
-import { FC } from "react";
-import classNames from "classnames";
+import { FC } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Tab.module.scss";
+import styles from './Tab.module.scss';
 
 export interface ITabProps {
   className?: string;

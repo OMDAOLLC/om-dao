@@ -1,8 +1,8 @@
-import { FC, useCallback } from "react";
-import classNames from "classnames";
+import { FC, useCallback } from 'react';
+import classNames from 'classnames';
 
-import styles from "./Tabs.module.scss";
-import { ITabProps, Tab } from "./Tab";
+import styles from './Tabs.module.scss';
+import { ITabProps, Tab } from './Tab';
 
 export interface ITabsProps {
   activeKey: string;

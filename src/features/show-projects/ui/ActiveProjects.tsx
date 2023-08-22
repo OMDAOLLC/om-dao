@@ -1,18 +1,33 @@
-import { FC } from "react";
-import { Project } from "./Project";
+import { FC, useMemo } from 'react';
+import { IProjectProps, Project } from './Project';
 
-import { TOKEN_SYMBOLS, TOKEN_HREF, TOKEN_TITLE } from "../../../entities";
 import { useTranslation } from 'react-i18next';
+import { COMMON_AG_DATA } from '../../../shared/constants/blockchain';
+import { TFunction } from 'i18next';
 
+const getActiveProjects = (t: TFunction) => {
+  const projects: IProjectProps[] = [
+    {
+      title: COMMON_AG_DATA.title,
+      symbol: COMMON_AG_DATA.symbol,
+      href: COMMON_AG_DATA.herf,
+      buttonName: t('common.swap') + ' omAra /',
+    },
+  ];
+
+  return projects;
+};
 
 export const ActiveProjects: FC = () => {
-  const { t } = useTranslation()
-  
+  const { t } = useTranslation();
+
+  const activeProjects = useMemo(() => getActiveProjects(t), [t]);
+
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-      <Project title={TOKEN_TITLE[TOKEN_SYMBOLS.TIGR]} symbol={TOKEN_SYMBOLS.TIGR} href={TOKEN_HREF[TOKEN_SYMBOLS.TIGR]} />
-      <Project title={TOKEN_TITLE[TOKEN_SYMBOLS.LED]} symbol={TOKEN_SYMBOLS.LED} href={TOKEN_HREF[TOKEN_SYMBOLS.LED]} />
-      <Project buttonName={t("common.swap")} title={TOKEN_TITLE[TOKEN_SYMBOLS.ARAORIG]} symbol={TOKEN_SYMBOLS.ARAORIG} href={TOKEN_HREF[TOKEN_SYMBOLS.ARAORIG]} />
+      {activeProjects.map((project) => (
+        <Project key={project.symbol} {...project} />
+      ))}
     </div>
   );
 };

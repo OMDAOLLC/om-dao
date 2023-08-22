@@ -1,10 +1,10 @@
-import { FC } from "react";
-import classNames from "classnames";
+import { FC } from 'react';
+import classNames from 'classnames';
 
-import styles from "./DestinationContract.module.scss";
-import { ContractBlock } from "../ContractBlock";
-import { BaseContractInfo, FullContractInfo } from "../../types";
-import {useTranslation} from "react-i18next";
+import styles from './DestinationContract.module.scss';
+import { ContractBlock } from '../ContractBlock';
+import { BaseContractInfo, FullContractInfo } from '../../types';
+import { useTranslation } from 'react-i18next';
 
 export interface DestinationContractProps {
   className?: string;
@@ -23,7 +23,7 @@ export const DestinationContract: FC<DestinationContractProps> = ({
   maxCount,
   ...otherProps
 }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div
@@ -31,7 +31,7 @@ export const DestinationContract: FC<DestinationContractProps> = ({
       {...otherProps}
     >
       <ContractBlock
-        title={t("common.form.youGet")}
+        title={t('common.form.youGet')}
         token={fullContractInfo}
         readonlyAmount
         amount={amount}
