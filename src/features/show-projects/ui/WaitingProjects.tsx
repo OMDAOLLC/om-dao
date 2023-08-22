@@ -10,6 +10,10 @@ import {
   COMMON_CRC_DATA,
   COMMON_DELC_DATA,
   COMMON_MS_DATA,
+  COMMON_LED_DATA,
+  COMMON_FP_DATA,
+  COMMON_DB_DATA,
+  COMMON_CRD_DATA,
 } from '../../../shared/constants/blockchain';
 import { TFunction } from 'i18next';
 
@@ -56,6 +60,30 @@ const getAwaitingProjects = (t: TFunction): IProjectProps[] => {
       title: COMMON_CRC_DATA.title,
       symbol: COMMON_CRC_DATA.symbol,
       href: COMMON_CRC_DATA.herf,
+    },
+    {
+      buttonName: t('common.show'),
+      title: COMMON_LED_DATA.title,
+      symbol: COMMON_LED_DATA.symbol,
+      href: COMMON_LED_DATA.herf,
+    },
+    {
+      buttonName: t('common.show'),
+      title: COMMON_FP_DATA.title,
+      symbol: COMMON_FP_DATA.symbol,
+      href: COMMON_FP_DATA.herf,
+    },
+    {
+      buttonName: t('common.show'),
+      title: COMMON_DB_DATA.title,
+      symbol: COMMON_DB_DATA.symbol,
+      href: COMMON_DB_DATA.herf,
+    },
+    {
+      buttonName: t('common.show'),
+      title: COMMON_CRD_DATA.title,
+      symbol: COMMON_CRD_DATA.symbol,
+      href: COMMON_CRD_DATA.herf,
     },
   ];
 
