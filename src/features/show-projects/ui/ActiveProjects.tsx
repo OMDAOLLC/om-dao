@@ -11,7 +11,7 @@ const getActiveProjects = (t: TFunction) => {
       title: COMMON_AG_DATA.title,
       symbol: COMMON_AG_DATA.symbol,
       href: COMMON_AG_DATA.herf,
-      buttonName: t('common.swap'),
+      buttonName: t('common.swap') + ' omAra /',
     },
   ];
 
