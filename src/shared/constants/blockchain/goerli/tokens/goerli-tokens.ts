@@ -21,4 +21,5 @@ export const GOERLI_TOKENS: Record<ETokenSymbols, ITokenConstants> = {
   omdwDelC: USDT,
   omdwLed: USDT,
   omdwMS: USDT,
+  omIIIA: USDT,
 };
