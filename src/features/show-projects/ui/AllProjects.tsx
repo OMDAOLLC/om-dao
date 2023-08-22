@@ -32,7 +32,6 @@ export const AllProjects: FC = () => {
       {
         label: t('common.projectsPage.archive'),
         key: 'archive',
-        disabled: true,
         title: 'Нет архивных проектов',
       },
     ];

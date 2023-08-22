@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 import { TokenAddButton } from './TokenAddButton';
 import { useTranslation } from 'react-i18next';
@@ -26,14 +26,6 @@ export const TokenAddButtons: FC<ITokenAddButtonsProps> = ({ className }) => {
           walletName: 'MetaMask',
         })}
         tokenSymbol={ETokenSymbols.OMD}
-      />
-      <TokenAddButton
-        className="w-full"
-        text={t('common.addToken', {
-          symbol: ETokenSymbols.STOMD,
-          walletName: 'MetaMask',
-        })}
-        tokenSymbol={ETokenSymbols.STOMD}
       />
     </div>
   ) : (

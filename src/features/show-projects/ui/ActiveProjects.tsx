@@ -2,30 +2,16 @@ import { FC, useMemo } from 'react';
 import { IProjectProps, Project } from './Project';
 
 import { useTranslation } from 'react-i18next';
-import {
-  COMMON_AG_DATA,
-  COMMON_LED_DATA,
-  COMMON_TIGR_DATA,
-} from '../../../shared/constants/blockchain';
+import { COMMON_AG_DATA } from '../../../shared/constants/blockchain';
 import { TFunction } from 'i18next';
 
 const getActiveProjects = (t: TFunction) => {
   const projects: IProjectProps[] = [
     {
-      title: COMMON_TIGR_DATA.title,
-      symbol: COMMON_TIGR_DATA.symbol,
-      href: COMMON_TIGR_DATA.herf,
-    },
-    {
-      title: COMMON_LED_DATA.title,
-      symbol: COMMON_LED_DATA.symbol,
-      href: COMMON_LED_DATA.herf,
-    },
-    {
       title: COMMON_AG_DATA.title,
       symbol: COMMON_AG_DATA.symbol,
       href: COMMON_AG_DATA.herf,
-      buttonName: t('common.swap'),
+      buttonName: t('common.swap') + ' omAra /',
     },
   ];
 

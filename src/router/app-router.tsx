@@ -4,12 +4,10 @@ import {
   ProjectPage,
   ProjectsPage,
   RootLayout,
-  StakePage,
   ReferralPage,
   ReferralTransactionsPage,
 } from '../pages';
 import { PATHS } from './constants';
-import React from 'react';
 
 export const appRouter = createBrowserRouter([
   {
@@ -20,34 +18,30 @@ export const appRouter = createBrowserRouter([
         element: <ExchangePage />,
       },
       {
-        path: PATHS.STAKE,
-        element: <StakePage />,
-      },
-      {
         path: PATHS.PROJECTS,
         element: <ProjectsPage />,
       },
       {
         path: `${PATHS.PROJECTS}/:symbol`,
         element: <ProjectPage />,
-        loader: async ({ params, request, context }) => {
-          if(!params.symbol) {
-            return redirect(PATHS.ROOT)
+        loader: ({ params }) => {
+          if (!params.symbol) {
+            return redirect(PATHS.ROOT);
           }
 
-          return null
-        }
+          return null;
+        },
       },
       {
         path: `${PATHS.PROJECTS}/:symbol/:refcode`,
         element: <ProjectPage />,
-        loader: async ({ params, request, context }) => {
-          if(!params.symbol) {
-            return redirect(PATHS.ROOT)
+        loader: ({ params }) => {
+          if (!params.symbol) {
+            return redirect(PATHS.ROOT);
           }
 
-          return null
-        }
+          return null;
+        },
       },
       {
         path: `${PATHS.REFERRAL}/:refcode`,
