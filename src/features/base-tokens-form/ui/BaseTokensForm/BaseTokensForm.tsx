@@ -268,7 +268,7 @@ const useBaseTokenInfo = (
     token: token.address,
     watch,
   });
-
+  console.log({ balance ,token: token.address, address});
   const { data: name, isLoading: isLoadingName } = useContractRead({
     address: token.address,
     abi: token.abi,
@@ -279,7 +279,10 @@ const useBaseTokenInfo = (
     if (isLoadingBalance || isLoadingName) {
       return;
     }
+
+    console.log("fetchData");
     fetchData();
+    console.log("fetchData 1");
     async function fetchData() {
       const image = await import(
         `../../../../app/images/tokens/${tokenSymbol.toLowerCase()}.webp`
@@ -287,6 +290,7 @@ const useBaseTokenInfo = (
         .then((module) => module.default)
         .catch();
 
+      console.log("fetchData 2");
       setResult({
         name: name as unknown as string,
         decimals: balance ? balance.decimals.toString() : '0',
