@@ -14,6 +14,7 @@ import {
   COMMON_FP_DATA,
   COMMON_DB_DATA,
   COMMON_CRD_DATA,
+  COMMON_WEBI_DATA,
 } from '../../../shared/constants/blockchain';
 import { TFunction } from 'i18next';
 
@@ -84,6 +85,12 @@ const getAwaitingProjects = (t: TFunction): IProjectProps[] => {
       title: COMMON_CRD_DATA.title,
       symbol: COMMON_CRD_DATA.symbol,
       href: COMMON_CRD_DATA.herf,
+    },
+    {
+      buttonName: t('common.show'),
+      title: COMMON_WEBI_DATA.title,
+      symbol: COMMON_WEBI_DATA.symbol,
+      href: COMMON_WEBI_DATA.herf,
     },
   ];
 

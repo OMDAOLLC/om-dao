@@ -17,6 +17,9 @@ import { omdwDelC } from './omdwDelC';
 import { omdwLed } from './omdwLed';
 import { omdwMS } from './omdwMS';
 import { omIIIA } from './omIIIA';
+import { omZely } from './omZely';
+import { omTolW } from './omTolW';
+import { omWeBi } from './omWeBi';
 
 export const ETHEREUM_TOKENS: Record<ETokenSymbols, ITokenConstants> = {
   USDT,
@@ -37,4 +40,7 @@ export const ETHEREUM_TOKENS: Record<ETokenSymbols, ITokenConstants> = {
   omdwLed,
   omdwMS,
   omIIIA,
+  omWeBi,
+  omTolW,
+  omZely,
 };
