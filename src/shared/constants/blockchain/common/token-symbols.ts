@@ -17,7 +17,7 @@ export enum ETokenSymbols {
   DB = 'omDB',
   CRD = 'omCRD',
   IIIA = 'omIIIA',
-  TolW = "omTolW",
-  WeBi = "omWeBi",
-  Zely = "omZely",
+  TolW = 'omTolW',
+  WeBi = 'omWeBi',
+  Zely = 'omZely',
 }
