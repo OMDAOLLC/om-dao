@@ -1,4 +1,4 @@
-import { ITokenConstants, COMMON_OO_DATA, COMMON_AG_DATA } from '../../common';
+import { ITokenConstants, COMMON_AG_DATA } from '../../common';
 
 export const AG: ITokenConstants = {
   ...COMMON_AG_DATA,
