@@ -263,18 +263,33 @@ const useBaseTokenInfo = (
   const [result, setResult] = useState<BaseContractInfo>();
   const { address } = useAccount();
   const token = BLOCKCHAIN[chainId].tokens[tokenSymbol];
-  const { data: balance, isLoading: isLoadingBalance } = useBalance({
+  const {
+    data: balance,
+    isLoading: isLoadingBalance,
+    error: balance_error,
+  } = useBalance({
     address,
     token: token.address,
     watch,
   });
 
-  const { data: name, isLoading: isLoadingName } = useContractRead({
+  const {
+    data: name,
+    isLoading: isLoadingName,
+    error,
+  } = useContractRead({
     address: token.address,
     abi: token.abi,
     functionName: 'name',
   });
-
+  console.log({
+    error,
+    name,
+    balance,
+    balance_error,
+    address,
+    token,
+  });
   useEffect(() => {
     if (isLoadingBalance || isLoadingName) {
       return;
