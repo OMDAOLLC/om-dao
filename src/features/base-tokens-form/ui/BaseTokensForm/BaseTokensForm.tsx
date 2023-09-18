@@ -282,14 +282,7 @@ const useBaseTokenInfo = (
     abi: token.abi,
     functionName: 'name',
   });
-  console.log({
-    error,
-    name,
-    balance,
-    balanceError,
-    address,
-    token,
-  });
+
   useEffect(() => {
     if (isLoadingBalance || isLoadingName) {
       return;
