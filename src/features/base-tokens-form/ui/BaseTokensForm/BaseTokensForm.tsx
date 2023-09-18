@@ -266,7 +266,7 @@ const useBaseTokenInfo = (
   const {
     data: balance,
     isLoading: isLoadingBalance,
-    error: balance_error,
+    error: balanceError,
   } = useBalance({
     address,
     token: token.address,
@@ -286,7 +286,7 @@ const useBaseTokenInfo = (
     error,
     name,
     balance,
-    balance_error,
+    balanceError,
     address,
     token,
   });
